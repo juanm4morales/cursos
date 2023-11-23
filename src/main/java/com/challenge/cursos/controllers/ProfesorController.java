@@ -81,14 +81,20 @@ public class ProfesorController {
 
     @PostMapping("/setProfesor")
     public String setProfesor(@RequestParam(required = false) Long idProfesor, RedirectAttributes attributes, Model model){
-
-        try {
-            this.profesor = profesorServicio.buscarProfesor(idProfesor);
-            attributes.addFlashAttribute("info", "Profesor seleccionado con éxito.");
-        } catch (ExcepcionServicio e) {
-            attributes.addFlashAttribute("error", e.getMessage());
+        if (idProfesor!=null){
+            try {
+                this.profesor = profesorServicio.buscarProfesor(idProfesor);
+                attributes.addFlashAttribute("info", "Profesor seleccionado con éxito.");
+                return "redirect:/profesor/perfil";
+            } catch (ExcepcionServicio e) {
+                attributes.addFlashAttribute("error", e.getMessage());
+            }
+        }
+        else {
+            attributes.addFlashAttribute("warning", "No se ha seleccionado un profesor");
         }
         return "redirect:/profesor/";
+        
         
 
         
