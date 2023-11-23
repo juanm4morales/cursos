@@ -26,7 +26,7 @@ import com.challenge.cursos.services.ProfesorServicio;
 import jakarta.validation.Valid;
 
 /**
- * Controlador asignado al perfil de administrador. Posee control total sobre las entidades: Alumno, Profesor, Curso. 
+ * Controlador asignado al perfil de administrador. Posee control total sobre las entidades: Alumno, Profesor, Curso. Y permisos de lectura sobre listado de inscripciones. 
  */
 @Controller
 @RequestMapping("/admin")
@@ -47,14 +47,28 @@ public class AdminController {
 
     @Autowired
     private InscripcionCursoServicio inscripcionServicio;
-
+    /**
+     * Agrega atributos, necesarios para renderizar la tabla, al modelo que recibe thymeleaf.
+     * @param <T> Tipo de la entidad.
+     * @param entidades Listado de entidades a mostrar (filas).
+     * @param nombreEntidad Nombre de la entidad.
+     * @param model Modelo con atributos.
+     * @param titulo Título.
+     */
     private <T> void listAttributes(List<T> entidades, String nombreEntidad, Model model, String titulo) {
         model.addAttribute("titulo", titulo);
         model.addAttribute(nombreEntidad, entidades);
         model.addAttribute("rol", "/admin/");
         model.addAttribute("template",template);
     }
-
+    /**
+     * Agrega atributos, necesarios para renderizar el formulario, al modelo que recibe thymeleaf.
+     * @param entidad Entidad del formulario.
+     * @param nombreEntidad Nombre de la entidad.
+     * @param model Modelo con atributos.
+     * @param titulo Título.
+     * @param accion Acción del formulario.
+     */
     private void formAttributes(Object entidad, String nombreEntidad, Model model, String titulo, String accion) {
         model.addAttribute("titulo", titulo);
         model.addAttribute(nombreEntidad, entidad);
@@ -62,11 +76,26 @@ public class AdminController {
         model.addAttribute("rol", "/admin/");
         model.addAttribute("template",template);
     }
-
+    /**
+     * Agrega atributos, necesarios para renderizar el formulario con Select, al modelo que recibe thymeleaf.
+     * @param <T> Tipo del listado de entidades para el Select.
+     * @param entidad Entidad del formulario.
+     * @param nombreEntidad Nombre de la entidad.
+     **@param model Modelo con atributos.
+     * @param titulo Título.
+     * @param accion Acción del formulario.
+     * @param lista Lista de entidades utilizadas en Select.
+     * @param nombreLista Nombre de la lista.
+     */
     private <T> void formListAttributes(Object entidad, String nombreEntidad, Model model, String titulo, String accion, List<T> lista, String nombreLista) {
         formAttributes(entidad, nombreEntidad, model, titulo, accion);
         model.addAttribute(nombreLista, lista);
     }
+
+    /**
+     * Home del admin.
+     * @return
+     */
 
     @GetMapping("/")
     public String admin() {
@@ -74,13 +103,22 @@ public class AdminController {
     }
 
     // PROFESORES
+    /**
+     * Formulario para dar de alta profesor.
+     * @param model
+     * @return
+     */
     @GetMapping("/profesores/crear")
     public String crearProfesor(Model model){
         Profesor profesor = new Profesor();
         formAttributes(profesor, "profesor", model, "Registrar profesor", REGISTRAR);
         return "profesorForm.html";
     }
-
+    /**
+     * Tabla con profesores dados de alta.
+     * @param model
+     * @return
+     */
     @GetMapping("/profesores")
     public String listarProfesores(Model model){
         List<Profesor> listaProfesores = profesorServicio.listarProfesores();
@@ -89,6 +127,13 @@ public class AdminController {
         return "profesorList.html";
     }
 
+    /**
+     * Formulario para modificar profesor.
+     * @param idProfesor
+     * @param model
+     * @param attributes
+     * @return
+     */
     @GetMapping("/profesores/modificar/{id}")
     public String modificarProfesor(@PathVariable("id") Long idProfesor, Model model, RedirectAttributes attributes){
         try {
@@ -103,7 +148,12 @@ public class AdminController {
             return "redirect:/admin/profesores";
         }
     }
-
+    /**
+     * Elimina al profesor seleccionado
+     * @param idProfesor Identificador del profesor a eliminar
+     * @param attributes
+     * @return
+     */
     @GetMapping("/profesores/eliminar/{id}")
     public String eliminarProfesor(@PathVariable("id") Long idProfesor, RedirectAttributes attributes) {
 
@@ -118,7 +168,14 @@ public class AdminController {
     }
 
     
-
+    /**
+     * Almacena los datos de un profesor. Si ya existe lo modifica.
+     * @param profesor 
+     * @param result
+     * @param model
+     * @param attributes
+     * @return
+     */
     @PostMapping("/profesores/guardar")
     public String guardarProfesor(@Valid @ModelAttribute Profesor profesor, BindingResult result, Model model, RedirectAttributes attributes){
         if (result.hasErrors()){
@@ -134,14 +191,25 @@ public class AdminController {
     }
 
     // ALUMNOS 
-
+    /**
+     * Formulario para dar de alta alumno.
+     * @param model
+     * @return
+     */
     @GetMapping("/alumnos/crear")
     public String crearAlumno(Model model){
         Alumno alumno = new Alumno();
         formAttributes(alumno, "alumno", model, "Registrar Alumno", REGISTRAR);
         return "alumnoForm.html";
     }
-    
+
+    /**
+     * Formulario para modificar alumno.
+     * @param idAlumno
+     * @param model
+     * @param attributes
+     * @return
+     */    
     @GetMapping("/alumnos/modificar/{id}")
     public String modificarAlumno(@PathVariable("id") Long idAlumno, Model model, RedirectAttributes attributes){
         try {
@@ -157,6 +225,12 @@ public class AdminController {
         }
     }
 
+    /**
+     * Elimina al alumno seleccionado
+     * @param idAlumno Identificador del alumno a eliminar
+     * @param attributes
+     * @return
+     */
     @GetMapping("/alumnos/eliminar/{id}")
     public String eliminarAlumno(@PathVariable("id") Long idAlumno, RedirectAttributes attributes) {
 
@@ -169,7 +243,11 @@ public class AdminController {
         }
         return "redirect:/admin/alumnos";
     }
-
+    /**
+     * Tabla con alumnos dados de alta.
+     * @param model
+     * @return
+     */
     @GetMapping("/alumnos")
     public String listarAlumnos(Model model){
         
@@ -179,6 +257,14 @@ public class AdminController {
         return "alumnoList.html";
     }
 
+    /**
+     * Almacena los datos de un alumno. Si ya existe lo modifica.
+     * @param alumno 
+     * @param result
+     * @param model
+     * @param attributes
+     * @return
+     */
     @PostMapping("/alumnos/guardar")
     public String guardarAlumno(@Valid @ModelAttribute Alumno alumno, BindingResult result, Model model, RedirectAttributes attributes){
         if (result.hasErrors()){
@@ -235,7 +321,11 @@ public class AdminController {
         }
         return "redirect:/admin/cursos";
     }
-
+    /**
+     * Tabla con todos los cursos dados de alta.
+     * @param model
+     * @return
+     */
     @GetMapping("/cursos")
     public String listarCursos(Model model){
         
@@ -265,7 +355,11 @@ public class AdminController {
     }
 
     // Inscripciones
-
+    /**
+     * Tabla con todas las inscripciones realizadas
+     * @param model
+     * @return
+     */
     @GetMapping("/inscripciones")
     public String listarInscripciones(Model model){
 
@@ -274,6 +368,14 @@ public class AdminController {
         
         return "inscripcionList.html";
     }
+
+    /**
+     * Tabla con todas las inscripciones a un curso particular.
+     * @param idCurso Identificador del curso.
+     * @param model
+     * @param attributes
+     * @return
+     */
 
     @GetMapping("/cursos/inscripciones/{id}")
     public String listarInscripciones(@PathVariable("id") Long idCurso, Model model, RedirectAttributes attributes) {

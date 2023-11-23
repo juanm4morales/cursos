@@ -1,5 +1,6 @@
 package com.challenge.cursos.controllers;
 
+
 import org.springframework.boot.web.servlet.error.ErrorController;
 
 import org.springframework.stereotype.Controller;
@@ -10,16 +11,17 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class ErrorCustomController implements ErrorController{
-
+    
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
-
+        
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         if (status != null) {
             Integer code=Integer.valueOf(status.toString());
             switch (code) {
                 case 400:
+                    
                     return "/errores/400.html";
                 case 403:
                     return "/errores/403.html";

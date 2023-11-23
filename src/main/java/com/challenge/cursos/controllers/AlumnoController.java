@@ -83,14 +83,21 @@ public class AlumnoController {
 
     @PostMapping("/setAlumno")
     public String setAlumno(@RequestParam(required = false) Long idAlumno, RedirectAttributes attributes, Model model){
-
-        try {
-            this.alumno = alumnoServicio.buscarAlumno(idAlumno);
-            attributes.addFlashAttribute("info", "Alumno seleccionado con éxito.");
-        } catch (ExcepcionServicio e) {
-            attributes.addFlashAttribute("error", e.getMessage());
+        if (idAlumno!=null){
+            try {
+                this.alumno = alumnoServicio.buscarAlumno(idAlumno);
+                attributes.addFlashAttribute("info", "Alumno seleccionado con éxito.");
+                return "redirect:/alumno/perfil";
+            } catch (ExcepcionServicio e) {
+                attributes.addFlashAttribute("error", e.getMessage());
+            }
+ 
+        }
+        else {
+            attributes.addFlashAttribute("warning", "No se ha seleccionado un alumno.");
         }
         return "redirect:/alumno/";
+        
         
     }
 
