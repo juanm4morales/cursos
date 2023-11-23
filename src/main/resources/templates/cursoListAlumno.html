@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+    <head th:replace="${template} :: head">
+    </head>
+
+    <body>
+        <header th:replace="${template} :: header"></header>
+
+        <div class="container">
+            <h1 th:text="${titulo}"></h1>
+            
+            
+                <div class="col m-2">
+                    <span style="font-size: larger;">Filtro: </span>
+                    <a th:href="@{/alumno/cursos?filtro=disponibles}" class="btn btn-warning">Disponibles</a>
+
+                    <a th:href="@{/alumno/cursos?filtro=inscriptos}" class="btn btn-warning">Inscriptos</a>
+
+                </div>
+                
+
+            
+            
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Profesor/a</th>
+                        <th scope="col">Turno</th>
+                        <th scope="col">Fecha Inicio</th>
+                        <th scope="col">Fecha Fin</th>
+                        <th scope="col"><i class="bi bi-hand-thumbs-up-fill"></i>/<i class="bi bi-hand-thumbs-down-fill"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="curso:${cursos}">
+                        <th scope="row" th:text="${curso.id}"></th>
+                        <td th:text="${curso.nombre}"></td>
+                        <td th:text="${curso.descripcion}"></td>
+                        <td th:text="${curso.profesorCurso.nombre} +' '+ ${curso.profesorCurso.apellido}"></td>
+                        <td th:text="${curso.turno}"></td>
+                        <td th:text="${curso.fechaInicio}"></td>
+                        <td th:text="${curso.fechaFin}"></td>
+                        
+                        <td>
+                            <a th:if="${alta} == false" type="button" class="btn btn-success" th:href="${rol} + @{cursos/inscripcion/} + ${curso.id}"><i class="bi bi-hand-thumbs-up-fill"></i></a>
+                            <a th:if="${alta} == true" type="button" class="btn btn-danger" th:href="${rol} + @{cursos/baja/} + ${curso.id}"><i class="bi bi-hand-thumbs-down-fill"></i></a>
+                        </td>
+                
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        <footer th:replace="${template} :: footer"></footer>
+    </body>
+
+</html>

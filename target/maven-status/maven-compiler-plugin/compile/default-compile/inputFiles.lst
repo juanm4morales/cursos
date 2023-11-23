@@ -1,0 +1,16 @@
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/services/ProfesorServicio.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/controllers/HomeController.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/exceptions/ExcepcionServicio.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/controllers/CursoController.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/repositories/UsuarioRepositorio.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/models/Curso.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/models/Alumno.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/services/CursoServicio.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/repositories/AlumnoRepositorio.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/services/AlumnoServicio.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/CursosApplication.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/controllers/ProfesorController.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/models/Usuario.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/models/Profesor.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/repositories/CursoRepositorio.java
+/home/juanm4/Dev/challenge5toElemento/cursos/src/main/java/com/challenge/cursos/repositories/ProfesorRepositorio.java

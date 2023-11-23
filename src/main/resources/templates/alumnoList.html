@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+    <head th:replace="${template} :: head">
+    </head>
+
+    <body>
+        <header th:replace="${template} :: header"></header>
+
+        <div class="container">
+            <h1 th:text="${titulo}"></h1>
+
+            <a class="m-2 p-2 btn btn-success btn-sm" th:href="${rol} + @{alumnos/crear}">Registrar Alumno</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Legajo</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="alumno:${alumnos}">
+                        <th scope="row" th:text="${alumno.id}"></th>
+                        <td th:text="${alumno.nombre}"></td>
+                        <td th:text="${alumno.apellido}"></td>
+                        <td th:text="${alumno.legajo}"></td>
+                        <td th:text="${alumno.email}"></td>
+                        
+                        <td>
+                            <a type="button" class="btn btn-success" th:href="${rol} + @{alumnos/modificar/} + ${alumno.id}"><i class="bi-pencil-square"></i></a>
+                            <a type="button" class="btn btn-danger" th:href="${rol} + @{alumnos/eliminar/} + ${alumno.id}" onclick="return confirm('Estás seguro de eliminar el alumno?')"><i class="bi-trash"></i></a>                            
+                        </td>
+                
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        <footer th:replace="${template} :: footer"></footer>
+    </body>
+
+</html>
