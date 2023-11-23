@@ -2,7 +2,9 @@ package com.challenge.cursos.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,12 +21,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.challenge.cursos.exceptions.ExcepcionServicio;
 import com.challenge.cursos.models.Alumno;
 import com.challenge.cursos.models.Curso;
-import com.challenge.cursos.models.InscripcionCurso;
-import com.challenge.cursos.models.Profesor;
+
 import com.challenge.cursos.services.AlumnoServicio;
 import com.challenge.cursos.services.CursoServicio;
 import com.challenge.cursos.services.InscripcionCursoServicio;
-import com.challenge.cursos.services.ProfesorServicio;
+
 
 import jakarta.validation.Valid;
 
@@ -32,6 +33,9 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/alumno")
 public class AlumnoController {
+
+    Logger logger = LoggerFactory.getLogger(AlumnoController.class);
+
     public static final String REGISTRAR = "Registrar";
     public static final String MODIFICAR = "Modificar";
 
@@ -118,13 +122,16 @@ public class AlumnoController {
             RedirectAttributes attributes) {
         if (result.hasErrors()) {
             formAttributes(alumno, "alumno", model, "Actualizar perfil", "Actualizar");
+            
 
             System.out.println("Hubo errores en el formulario");
             return "alumnoForm.html";
         }
         try {
             alumnoServicio.crearAlumno(alumno);
+            
         } catch (ExcepcionServicio e) {
+            
             attributes.addFlashAttribute("error", e.getMessage());
         }
         attributes.addFlashAttribute("success", "Perfil actualizado con éxito.");
