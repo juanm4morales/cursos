@@ -131,10 +131,11 @@ public class AlumnoController {
         }
         try {
             alumnoServicio.crearAlumno(alumno);
+            attributes.addFlashAttribute("success", "Perfil actualizado con éxito.");
         } catch (ExcepcionServicio e) {
             attributes.addFlashAttribute("error", e.getMessage());
         }
-        attributes.addFlashAttribute("success", "Perfil actualizado con éxito.");
+        
         return "redirect:/alumno/";
     }
 

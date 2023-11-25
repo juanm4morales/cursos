@@ -268,7 +268,7 @@ public class AdminController {
     @PostMapping("/alumnos/guardar")
     public String guardarAlumno(@Valid @ModelAttribute Alumno alumno, BindingResult result, Model model, RedirectAttributes attributes){
         if (result.hasErrors()){
-            formAttributes(alumno, "alumno", model, "Registrar/Modificar profesor", "Actualizar");
+            formAttributes(alumno, "alumno", model, "Registrar/Modificar alumno", "Actualizar");
 
             System.out.println("Hubo errores en el formulario");
             return "alumnoForm.html";
@@ -277,6 +277,10 @@ public class AdminController {
             alumnoServicio.crearAlumno(alumno);
         } catch (ExcepcionServicio e) {
             attributes.addFlashAttribute("error", e.getMessage());
+            formAttributes(alumno, "alumno", model, "Registrar/Modificar alumno", "Actualizar");
+            
+            // return "alumnoForm.html";
+            
         }
         attributes.addFlashAttribute("success", "Alumno registrado con éxito.");
         return "redirect:/admin/alumnos";
