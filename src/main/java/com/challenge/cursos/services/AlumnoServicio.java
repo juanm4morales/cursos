@@ -37,8 +37,13 @@ public class AlumnoServicio {
     @Transactional
     public void crearAlumno(Alumno alumno) throws ExcepcionServicio {
         try {
+            
             alumnoRepositorio.save(alumno);
+            
+
+
         } catch (Exception e) {
+            
             throw new ExcepcionServicio(e.getMessage());
         }
     }
