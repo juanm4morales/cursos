@@ -33,16 +33,23 @@ public class Curso {
 
     @ManyToOne
     @NotNull(message = "El profesor del curso no debe ser nulo")
+    @NotEmpty
     private Profesor profesorCurso;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "El turno del curso no debe ser nulo")
+    @NotEmpty
     private Turno turno;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
+    @NotNull(message = "La fecha del inicio de curso no debe ser nula")
+    @NotEmpty
     private Date fechaInicio;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "La fecha del fin de curso no debe ser nula")
+    @NotEmpty
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
 
