@@ -22,18 +22,18 @@ public class ErrorCustomController implements ErrorController{
             switch (code) {
                 case 400:
                     
-                    return "/errores/400.html";
+                    return "./errores/400.html";
                 case 403:
-                    return "/errores/403.html";
+                    return "./errores/403.html";
                 case 404:
-                    return "/errores/404.html";
+                    return "./errores/404.html";
                 case 500:
-                    return "/errores/500.html";
+                    return "./errores/500.html";
                 case 503:
-                    return "/errores/503.html";
+                    return "./errores/503.html";
 
                 default:
-                    return "/errores/error.html";              
+                    return "./errores/error.html";              
             }
         }
         return "/errores/error.html";
