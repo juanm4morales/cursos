@@ -2,7 +2,7 @@ package com.challenge.cursos.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,12 +19,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.challenge.cursos.exceptions.ExcepcionServicio;
 import com.challenge.cursos.models.Alumno;
 import com.challenge.cursos.models.Curso;
-import com.challenge.cursos.models.InscripcionCurso;
-import com.challenge.cursos.models.Profesor;
+
 import com.challenge.cursos.services.AlumnoServicio;
 import com.challenge.cursos.services.CursoServicio;
 import com.challenge.cursos.services.InscripcionCursoServicio;
-import com.challenge.cursos.services.ProfesorServicio;
+
 
 import jakarta.validation.Valid;
 
@@ -97,10 +96,7 @@ public class AlumnoController {
             attributes.addFlashAttribute("warning", "No se ha seleccionado un alumno.");
         }
         return "redirect:/alumno/";
-        
-        
     }
-
 
     @GetMapping("/perfil")
     public String perfil(Model model, RedirectAttributes attributes){
@@ -141,8 +137,6 @@ public class AlumnoController {
 
     // CURSOS
 
-  
-
     @GetMapping("/cursos")
     public String listarCursosFiltrados(@RequestParam(name = "filtro", required = false, defaultValue = "disponibles") String filtro, Model model, RedirectAttributes attributes){
         alumnoAttributes(model);
@@ -168,8 +162,6 @@ public class AlumnoController {
         return "cursoListAlumno.html";
     }
 
-
-
     @GetMapping("/cursos/inscripcion/{id}")
     public String inscripcion(@PathVariable("id") Long idCurso, Model model, RedirectAttributes attributes) {
         alumnoAttributes(model);
@@ -193,10 +185,13 @@ public class AlumnoController {
             }
 
         }
-        
         attributes.addFlashAttribute("success", "Se ha dado de baja correctamente al curso.");
         return "redirect:/alumno/cursos";
     }
 
-    
+    @GetMapping("/salir")
+    public String salir() {
+        this.alumno = null; // Establecer alumno en null
+        return "redirect:/"; // Redirigir a la página principal 
+    }    
 }

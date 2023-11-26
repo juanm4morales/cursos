@@ -2,7 +2,6 @@ package com.challenge.cursos.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -239,4 +238,10 @@ public class ProfesorController {
         }
         return "redirect:/profesor/cursos";
     }    
+
+    @GetMapping("/salir")
+    public String salir() {
+        this.profesor = null; // Establecer profesor en null
+        return "redirect:/"; // Redirigir a la página principal
+    }
 }
